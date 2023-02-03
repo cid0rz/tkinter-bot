@@ -186,8 +186,11 @@ class Commands(commands.Cog):
                 if not member.bot
             ]
         )
-
-        count_embed = discord.Embed(description=f"Member Count: **{member_count}**")
+        
+        color = interaction.user.roles[-1].color
+        count_embed = discord.Embed(
+            description=f"Member Count: **{member_count}**", color=color
+        )
         await interaction.followup.send(embed=count_embed)
 
     @app_commands.command(name="faq", description="Command to show FAQs on tkinter")
