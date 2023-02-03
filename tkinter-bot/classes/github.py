@@ -1,7 +1,9 @@
 import requests
 
+
 class GitHub:
-    """Class to handle all github issue queries"""
+    """Class that handle github code blobs"""
+
     def __init__(self):
         self.URL = "https://raw.githubusercontent.com/{}"
 
@@ -45,7 +47,7 @@ class GitHub:
         parts = url.split("/")[3:]
         file_data = "/".join(parts).split("#")
         file_path = file_data[0]
-        lang = file_path.split('.')[-1]
+        lang = file_path.split(".")[-1]
         line = file_data[1:]
 
         if len(line) > 1:
@@ -57,4 +59,3 @@ class GitHub:
         data_string = f"`{file_path}` {line_info}"
 
         return data_string, lang
-

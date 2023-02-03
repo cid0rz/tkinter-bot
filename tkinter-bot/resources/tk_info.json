@@ -84,7 +84,7 @@
         "code": "wid.bind(<[modifier-]...type[-detail]>, func)",
         "link": "https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/events.html"
     },
-    "ttk":{
+    "ttk": {
         "desc": "The Tk themed widget set is a set of widgets that are designed to look and behave like the native widgets in a platform-native GUI. The widgets are themed using the Tk themed widget set, which means that they look and behave like the native widgets in a platform-native GUI.\nStarting with Tk 8.5, the ttk module became available. This module replaces much (but not all) of the original Tkinter machinery. Use this module to gain these advantages:",
         "code": "from tkinter import ttk",
         "link": "https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/ttk.html"

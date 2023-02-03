@@ -2,8 +2,7 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from discord.app_commands import Choice
-from classes import resource
-import messages
+import utils.messages
 from discord.utils import format_dt
 from classes.resource import Resource
 
@@ -56,10 +55,12 @@ class Commands(commands.Cog):
             description="The 3 documentations that we have found useful are:",
             color=color,
         )
-        embed.add_field(name="NMT docs(Anzel's version)", value=messages.DOCS_ANZEL)
-        embed.add_field(name="TkDocs", value=messages.DOCS_TK, inline=False)
         embed.add_field(
-            name="tkinterbook(Effbot)", value=messages.DOCS_EFFBOT, inline=False
+            name="NMT docs(Anzel's version)", value=utils.messages.DOCS_ANZEL
+        )
+        embed.add_field(name="TkDocs", value=utils.messages.DOCS_TK, inline=False)
+        embed.add_field(
+            name="tkinterbook(Effbot)", value=utils.messages.DOCS_EFFBOT, inline=False
         )
         embed.add_field(
             name="Found more quality docs?",
@@ -77,7 +78,7 @@ class Commands(commands.Cog):
         self, interaction: discord.Interaction, member: discord.Member = None
     ):
         color = interaction.user.roles[-1].color
-        embed = discord.Embed(description=messages.code_block, color=color)
+        embed = discord.Embed(description=utils.messages.code_block, color=color)
         if member:
             return await interaction.response.send_message(
                 f"<@{member.id}>", embed=embed
@@ -144,7 +145,7 @@ class Commands(commands.Cog):
     ):
         color = interaction.user.roles[-1].color
 
-        embed = discord.Embed(description=messages.long_code, color=color)
+        embed = discord.Embed(description=utils.messages.long_code, color=color)
         if member:
             return await interaction.response.send_message(
                 f"<@{member.id}>", embed=embed
@@ -189,11 +190,13 @@ class Commands(commands.Cog):
         count_embed = discord.Embed(description=f"Member Count: **{member_count}**")
         await interaction.followup.send(embed=count_embed)
 
-    @app_commands.command(name="faq", description='Command to show FAQs on tkinter')
+    @app_commands.command(name="faq", description="Command to show FAQs on tkinter")
     @app_commands.choices(
-        question=[Choice(name=q, value=q) for q in messages.FAQ.keys()]
+        question=[Choice(name=q, value=q) for q in utils.messages.FAQ.keys()]
     )
-    @app_commands.describe(question='Question to provide the link for', member='Member to tag, if any')
+    @app_commands.describe(
+        question="Question to provide the link for", member="Member to tag, if any"
+    )
     async def faq(
         self,
         interaction: discord.Interaction,
@@ -205,7 +208,7 @@ class Commands(commands.Cog):
 
         if question:
             embed.title = question.value
-            link = messages.FAQ[question.value]
+            link = utils.messages.FAQ[question.value]
             embed.description = f"[Link to the post]({link})"
             if member:
                 return await interaction.response.send_message(
@@ -215,7 +218,7 @@ class Commands(commands.Cog):
             return await interaction.response.send_message(embed=embed)
 
         embed.title = "FAQs on tkinter"
-        for q, link in messages.FAQ.items():
+        for q, link in utils.messages.FAQ.items():
             embed.add_field(name=q, value=f"[Link to the post]({link})", inline=False)
         else:
             embed.add_field(
@@ -230,6 +233,7 @@ class Commands(commands.Cog):
             )
 
         return await interaction.response.send_message(embed=embed)
-    
+
+
 async def setup(bot: commands.Bot):
     await bot.add_cog(Commands(bot))
