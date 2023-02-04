@@ -6,7 +6,7 @@ from .paths import FONTS_DIR, IMAGES_DIR
 
 def drawer(img, text, dp, mask, W=500):
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype(font=FONTS_DIR / "Poppins-SemiBold.ttf", size=25)
+    font = ImageFont.truetype(font=str((FONTS_DIR / "Poppins-SemiBold.ttf").resolve()), size=25)
 
     if len(text) > 20:
         text = text[:20] + "..."
